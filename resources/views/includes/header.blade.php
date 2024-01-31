@@ -24,6 +24,8 @@
 <!-- Theme style -->
 <link rel="stylesheet" href="{{ asset('plugin/adminLte/css/adminlte.min.css') }}">
 
+@vite('resources/css/app.css')
+
 @hasSection('style')
     @yield('style')
 @endif

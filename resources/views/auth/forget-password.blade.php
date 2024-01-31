@@ -22,7 +22,7 @@
                     <x-input-error :messages="$errors->get('email')" class="mt-1" />
                 </div>
 
-                <x-primary-button class="mt-5">
+                <x-primary-button class="mt-4">
                     {{ __('Send password reset link') }}
                 </x-primary-button>
             </form>

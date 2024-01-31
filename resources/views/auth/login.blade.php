@@ -19,16 +19,16 @@
                     <x-input-error :messages="$errors->get('email')" class="mt-1" />
 
                 </div>
-                <div class="mt-4">
+                <div class="mt-3">
                     <div class="flex items-center justify-between">
-                        <x-input-label for="password" class="text-gray-800" :value="__('Password')" />
+                        <x-input-label for="password" class="text-gray-800 mb-0" :value="__('Password')" />
                         <x-alink href="{{ route('get.forget.password') }}" class="text-gray-800" :value="__('Forgot password')" />
                     </div>
                     <x-input-text name="password" type="password" value="{{ old('password') }}" />
                     <x-input-error :messages="$errors->get('password')" class="mt-1" />
                 </div>
 
-                <x-primary-button class="mt-5">
+                <x-primary-button class="mt-4">
                     {{ __('Sign in') }}
                 </x-primary-button>
             </form>

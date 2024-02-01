@@ -14,8 +14,8 @@
     @include('layouts.app')
 
     <main>
-        <div class="w-full max-w-sm mx-auto overflow-hidden shadow-md dark:bg-gray-800">
-            <h1>dashboard</h1>
+        <div class="w-full max-w-sm mx-auto overflow-hidden shadow-md">
+            <h1 class="text-center">Home page</h1>
         </div>
     </main>
 

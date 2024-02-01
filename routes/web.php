@@ -17,11 +17,17 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
 Route::get('/', function () {
-    return view('pages.dashboard');
-});
+    return view('home');
+})->middleware('new-auth');
 
+Route::get('/dashboard', function () {
+    return view('pages.dashboard');
+})->middleware('new-auth')->name('pages.dash');
+
+Route::get('/home', function () {
+    return view('home');
+})->middleware('new-auth');
 
 Route::get('/login', [AuthController::class, 'index'])->name('get.login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');

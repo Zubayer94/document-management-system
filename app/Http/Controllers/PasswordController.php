@@ -21,6 +21,11 @@ class PasswordController extends Controller
             'email' => "required|email",
         ]);
 
+        $user = DB::table("users")->where("email", $request->email)->first();
+        if (!$user) {
+            return redirect()->back()->with("error", "Your email doesn't exist, please go for singup.");
+        }
+
         $token = Str::random(64);
 
         DB::table("password_reset_tokens")->insert([

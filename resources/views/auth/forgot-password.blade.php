@@ -12,6 +12,7 @@
                     <form action="{{ route('post.forgot.password') }}" method="post">
                         @csrf
 
+                        <x-alert class="p-3 mb-4" />
                         <div class="form-group  mb-3">
                             <div class="input-group">
                                 <x-input-text name="email" type="email" placeholder="Email"

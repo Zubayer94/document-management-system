@@ -13,6 +13,8 @@
                     <form action="{{ route('post.signup') }}" method="post">
                         @csrf
 
+                        <x-alert class="p-3 mb-4" />
+
                         <div class="form-group  mb-3">
                             <div class="input-group">
                                 <x-input-text name="name" type="name" placeholder="Full name"

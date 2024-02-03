@@ -13,6 +13,7 @@
                     <form action="{{ route('post.reset.password') }}" method="post">
                         @csrf
 
+                        <x-alert class="p-3 mb-4" />
                         <input name="token" type="hidden" value="{{ $token }}">
                         <div class="form-group  mb-3">
                             <div class="input-group">

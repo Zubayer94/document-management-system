@@ -11,6 +11,8 @@
                 <div class="card-body">
                     <p class="login-box-msg">Sign in to start your session</p>
 
+                    <x-alert class="p-3 mb-4" />
+
                     <form action="{{ route('post.login') }}" method="post">
                         @csrf
 

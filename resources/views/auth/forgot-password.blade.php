@@ -12,23 +12,21 @@
                     <form action="{{ route('post.forgot.password') }}" method="post">
                         @csrf
 
-                        <div class="form-group mb-3">
+                        <div class="form-group  mb-3">
                             <div class="input-group">
-                                <input name="email" type="email" class="form-control" placeholder="Email">
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <span class="fas fa-envelope"></span>
-                                    </div>
-                                </div>
+                                <x-input-text name="email" type="email" placeholder="Email"
+                                    value="{{ old('email') }}" />
+                                <x-input-icon class="fas fa-envelope" />
                             </div>
                             <!-- Error Message -->
-                            @error('email')
-                                <small id="passwordError" class="form-text text-danger">{{ $message }}</small>
-                            @enderror
+                            <x-input-error :messages="$errors->first('email')" />
                         </div>
+
                         <div class="row">
                             <div class="col-12">
-                                <button type="submit" class="btn btn-primary btn-block">Request new password</button>
+                                <x-primary-button type="submit">
+                                    Request new password
+                                </x-primary-button>
                             </div>
                             <!-- /.col -->
                         </div>

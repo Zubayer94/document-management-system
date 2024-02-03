@@ -15,63 +15,37 @@
 
                         <div class="form-group  mb-3">
                             <div class="input-group">
-                                <input name="name" type="text" class="form-control" placeholder="Full name"
-                                    value="{{ old('name') }}">
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <span class="fas fa-user"></span>
-                                    </div>
-                                </div>
+                                <x-input-text name="name" type="name" placeholder="Full name"
+                                    value="{{ old('name') }}" />
+                                <x-input-icon class="fas fa-user" />
                             </div>
-
                             <!-- Error Message -->
-                            @error('name')
-                                <small id="nameError" class="form-text text-danger"> {{ $message }}</small>
-                            @enderror
+                            <x-input-error :messages="$errors->first('name')" />
                         </div>
 
                         <div class="form-group  mb-3">
                             <div class="input-group">
-                                <input name="email" type="email" class="form-control" placeholder="Email"
-                                    value="{{ old('email') }}">
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <span class="fas fa-envelope"></span>
-                                    </div>
-                                </div>
+                                <x-input-text name="email" type="email" placeholder="Email"
+                                    value="{{ old('email') }}" />
+                                <x-input-icon class="fas fa-envelope" />
                             </div>
-
                             <!-- Error Message -->
-                            @error('email')
-                                <small id="emailError" class="form-text text-danger"> {{ $message }}</small>
-                            @enderror
+                            <x-input-error :messages="$errors->first('email')" />
                         </div>
 
                         <div class="form-group  mb-3">
                             <div class="input-group">
-                                <input name="password" type="password" class="form-control" placeholder="Password">
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <span class="fas fa-lock"></span>
-                                    </div>
-                                </div>
+                                <x-input-text name="password" type="password" placeholder="Password" />
+                                <x-input-icon class="fas fa-lock" />
                             </div>
-
                             <!-- Error Message -->
-                            @error('password')
-                                <small id="passwordError" class="form-text text-danger">{{ $message }}</small>
-                            @enderror
+                            <x-input-error :messages="$errors->first('password')" />
                         </div>
 
                         <div class="form-group  mb-3">
                             <div class="input-group">
-                                <input name="password_confirmation" type="password" class="form-control"
-                                    placeholder="Retype password">
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <span class="fas fa-lock"></span>
-                                    </div>
-                                </div>
+                                <x-input-text name="password_confirmation" type="password" placeholder="Confirm Password" />
+                                <x-input-icon class="fas fa-lock" />
                             </div>
                         </div>
 
@@ -86,7 +60,9 @@
                             </div> --}}
                             <!-- /.col -->
                             <div class="col-4 mx-auto">
-                                <button type="submit" class="btn btn-primary btn-block">Register</button>
+                                <x-primary-button type="submit">
+                                    Register
+                                </x-primary-button>
                             </div>
                         </div>
                     </form>

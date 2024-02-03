@@ -16,32 +16,23 @@
 
                         <div class="form-group  mb-3">
                             <div class="input-group">
-                                <x-input-text name="email" type="email" class="form-control" placeholder="Email"
+                                <x-input-text name="email" type="email" placeholder="Email"
                                     value="{{ old('email') }}" />
                                 <x-input-icon class="fas fa-envelope" />
                             </div>
                             <!-- Error Message -->
-                            <x-input-error :message="$errors->first('email')" />
-                            @error('email')
-                                <small id="passwordError" class="form-text text-danger">{{ $message }}</small>
-                            @enderror
+                            <x-input-error :messages="$errors->first('email')" />
                         </div>
 
                         <div class="form-group  mb-3">
                             <div class="input-group">
-                                <input name="password" type="password" class="form-control" placeholder="Password" />
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <span class="fas fa-lock"></span>
-                                    </div>
-                                </div>
+                                <x-input-text name="password" type="password" placeholder="Password" />
+                                <x-input-icon class="fas fa-lock" />
                             </div>
-
                             <!-- Error Message -->
-                            @error('password')
-                                <small id="passwordError" class="form-text text-danger">{{ $message }}</small>
-                            @enderror
+                            <x-input-error :messages="$errors->first('password')" />
                         </div>
+
                         <div class="row">
                             {{-- <div class="col-8">
                                 <div class="icheck-primary">
@@ -51,9 +42,9 @@
                             </div> --}}
                             <!-- /.col -->
                             <div class="col-4 mx-auto">
-                                <button type="submit" class="btn btn-primary btn-block">
+                                <x-primary-button type="submit">
                                     Sign In
-                                </button>
+                                </x-primary-button>
                             </div>
                             <!-- /.col -->
                         </div>

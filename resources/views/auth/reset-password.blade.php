@@ -14,36 +14,27 @@
                         @csrf
 
                         <input name="token" type="hidden" value="{{ $token }}">
-                        <div class="form-group mb-3">
+                        <div class="form-group  mb-3">
                             <div class="input-group">
-                                <input name="password" type="password" class="form-control" placeholder="Password">
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <span class="fas fa-lock"></span>
-                                    </div>
-                                </div>
+                                <x-input-text name="password" type="password" placeholder="Password" />
+                                <x-input-icon class="fas fa-lock" />
                             </div>
                             <!-- Error Message -->
-                            @error('password')
-                                <small id="passwordError" class="form-text text-danger">{{ $message }}</small>
-                            @enderror
+                            <x-input-error :messages="$errors->first('password')" />
                         </div>
 
-                        <div class="form-group mb-3">
+                        <div class="form-group  mb-3">
                             <div class="input-group">
-                                <input name="password_confirmation" type="password" class="form-control"
-                                    placeholder="Confirm Password">
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <span class="fas fa-lock"></span>
-                                    </div>
-                                </div>
+                                <x-input-text name="password_confirmation" type="password" placeholder="Confirm Password" />
+                                <x-input-icon class="fas fa-lock" />
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-12">
-                                <button type="submit" class="btn btn-primary btn-block">Change password</button>
+                                <x-primary-button type="submit">
+                                    Change password
+                                </x-primary-button>
                             </div>
                         </div>
                     </form>

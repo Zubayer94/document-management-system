@@ -20,14 +20,26 @@
         timer: 3500
     });
 
-    @if(Session::has('success'))
-    Toast.fire({type: 'success', title: `{{Session::get('success')}}`})
-    @elseif(Session::has('warning'))
-    Toast.fire({type: 'warning', title: `{{Session::get('warning')}}`})
-    @elseif(Session::has('error'))
-    Toast.fire({type: 'error', title: `{{Session::get('error')}}`})
-    @elseif(Session::has('info'))
-    Toast.fire({type: 'info', title: `{{Session::get('info')}}`})
+    @if (Session::has('success'))
+        Toast.fire({
+            type: 'success',
+            title: `{{ Session::get('success') }}`
+        })
+    @elseif (Session::has('warning'))
+        Toast.fire({
+            type: 'warning',
+            title: `{{ Session::get('warning') }}`
+        })
+    @elseif (Session::has('error'))
+        Toast.fire({
+            type: 'error',
+            title: `{{ Session::get('error') }}`
+        })
+    @elseif (Session::has('info'))
+        Toast.fire({
+            type: 'info',
+            title: `{{ Session::get('info') }}`
+        })
     @endif
 </script>
 

@@ -7,12 +7,7 @@
 
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
-        @include ('includes.navbar')
-        @include ('includes.left-sidebar')
-
-        @yield('body')
-
-        @include ('includes.footer')
+        @yield('content')
     </div>
     @include ('includes.scripts')
 </body>

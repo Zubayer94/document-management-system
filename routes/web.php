@@ -18,18 +18,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Route::get('/', function () {
+// return view('index');
+// });
 Route::get('/', function () {
-return view('index');
+    return view('dashboard');
+    })->middleware('new-auth');
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+    })->middleware('new-auth');
+
+Route::controller(AuthController::class)->group(function (){
+    Route::get('/login', 'index')->name('get.login');
+    Route::post('/login', 'login')->name('post.login');
+    Route::get('/signup', 'signup')->name('get.signup');
+    Route::post('/signup', 'postSignup')->name('post.signup');
+    Route::get('logout', 'logout')->name('logout');
 });
 
-
-// Route::get('/login', [AuthController::class, 'index'])->name('get.login');
-// Route::post('/login', [AuthController::class, 'login'])->name('login.post');
-// Route::get('/signup', [AuthController::class, 'signup'])->name('get.signup');
-// Route::post('/signup', [AuthController::class, 'postSignup'])->name('signup.post');
-// Route::get('logout', [AuthController::class, 'logout'])->name('logout');
-
-// Route::get('/forget-password', [PasswordController::class, 'getForgetPassword'])->name('get.forget.password');
-// Route::post('/forget-password', [PasswordController::class, 'postForgetPassword'])->name('post.forget.password');
-// Route::get('/reset-password/{token}', [PasswordController::class, 'getResetPassword'])->name('get.reset.password');
-// Route::post('/reset-password', [PasswordController::class, 'postResetPassword'])->name('post.reset.password');
+Route::get('/forgot-password', [PasswordController::class, 'getForgotPassword'])->name('get.forgot.password');
+Route::post('/forgot-password', [PasswordController::class, 'postForgotPassword'])->name('post.forgot.password');
+Route::get('/reset-password/{token}', [PasswordController::class, 'getResetPassword'])->name('get.reset.password');
+Route::post('/reset-password', [PasswordController::class, 'postResetPassword'])->name('post.reset.password');

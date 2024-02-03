@@ -11,11 +11,11 @@ use Hash;
 
 class PasswordController extends Controller
 {
-    public function getForgetPassword()
+    public function getForgotPassword()
     {
-        return view("auth.forget-password");
+        return view("auth.forgot-password");
     }
-    public function postForgetPassword(Request $request)
+    public function postForgotPassword(Request $request)
     {
         $request->validate([
             'email' => "required|email",
@@ -30,11 +30,11 @@ class PasswordController extends Controller
         ]);
 
 
-        Mail::send('emails.forget-password', ['token' => $token], function ($message) use ($request) {
+        Mail::send('emails.forgot-password', ['token' => $token], function ($message) use ($request) {
             $message->to($request->email)->subject('Reset Password');
         });
 
-        return redirect()->route('get.forget.password')->with('success', 'We have send an email to reset password.');
+        return redirect()->route('get.forgot.password')->with('success', 'We have send an email to reset password.');
     }
 
     public function getResetPassword(Request $request)
@@ -57,7 +57,7 @@ class PasswordController extends Controller
         // update password in users table
         DB::table('users')->where(['email' => $request->email])->update(['password' => Hash::make($request->password)]);
 
-        // delete token of password_reset_tokens table 
+        // delete token of password_reset_tokens table
         DB::table('password_reset_tokens')->where(['email' => $request->email])->delete();
 
         return redirect()->route('get.login')->with('success', 'Password reset completed successfully.');

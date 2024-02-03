@@ -10,7 +10,7 @@ use Hash;
 
 class AuthController extends Controller
 {
-    // login section 
+    // login section
     public function index()
     {
         return view('auth.login');
@@ -25,14 +25,14 @@ class AuthController extends Controller
 
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
-            return redirect('home')
+            return redirect('dashboard')
                 ->with('success', 'You have Successfully loggedin.');
         }
 
         return redirect("login")->with('error', 'Oppes! You have entered invalid credentials.');
     }
 
-    // signup section 
+    // signup section
     public function signup()
     {
         return view('auth.signup');
@@ -43,7 +43,8 @@ class AuthController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email',
-            'password' => 'required',
+            'password' => 'required|confirmed',
+            'password_confirmation' => 'required'
         ]);
 
         $data = $request->all();
@@ -76,7 +77,7 @@ class AuthController extends Controller
         ]);
     }
 
-    // logout section 
+    // logout section
     public function logout()
     {
         Session::flush();

@@ -44,23 +44,21 @@ class PasswordController extends Controller
     public function postResetPassword(Request $request)
     {
         $request->validate([
-            'email' => 'required|email|exists:users',
+            // 'email' => 'required|email|exists:users',
             'password' => 'required|string|min:4|confirmed',
             'password_confirmation' => 'required'
         ]);
 
-        $updatePassword = DB::table('password_reset_tokens')->where(['email' => $request->email, 'token' => $request->token])->first();
-echo '<pre>';
-print_r($updatePassword);
+        $updatePassword = DB::table('password_reset_tokens')->where(['token' => $request->token])->first();
         if (!$updatePassword) {
             return redirect()->route('get.reset.password')->with('error', 'Sorry, invalid token');
         }
 
         // update password in users table
-        DB::table('users')->where(['email' => $request->email])->update(['password' => Hash::make($request->password)]);
+        DB::table('users')->where(['email' => $updatePassword->email])->update(['password' => Hash::make($request->password)]);
 
         // delete token of password_reset_tokens table
-        DB::table('password_reset_tokens')->where(['email' => $request->email])->delete();
+        DB::table('password_reset_tokens')->where(['email' => $updatePassword->email])->delete();
 
         return redirect()->route('get.login')->with('success', 'Password reset completed successfully.');
     }

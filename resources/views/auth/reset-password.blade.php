@@ -15,6 +15,7 @@
 
                         <x-alert class="p-3 mb-4" />
                         <input name="token" type="hidden" value="{{ $token }}">
+
                         <div class="form-group  mb-3">
                             <div class="input-group">
                                 <x-input-text name="password" type="password" placeholder="Password" />

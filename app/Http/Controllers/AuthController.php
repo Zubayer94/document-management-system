@@ -41,8 +41,8 @@ class AuthController extends Controller
     public function postSignup(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required|email',
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,',
             'password' => 'required|confirmed',
             'password_confirmation' => 'required'
         ]);

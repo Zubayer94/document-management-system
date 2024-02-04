@@ -17,7 +17,7 @@
     <ul class="navbar-nav ml-auto">
         <!-- Navbar Search -->
         <li class="nav-item">
-            <a class="nav-link" data-widget="navbar-search" href="#" role="button">
+            <a class="nav-link" data-widget="navbar-search" href="#" role="button" title='search'>
                 <i class="fas fa-search"></i>
             </a>
             <div class="navbar-search-block">
@@ -124,7 +124,12 @@
         </div>
       </li> --}}
         <li class="nav-item">
-            <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+            <a class="nav-link" href="{{ route('logout') }}" role="button" title='logout'>
+                <i class="fas fa-sign-out"></i>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-widget="fullscreen" href="#" role="button" title='full screen'>
                 <i class="fas fa-expand-arrows-alt"></i>
             </a>
         </li>

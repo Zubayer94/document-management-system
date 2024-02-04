@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PasswordController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Middleware;
 use App\Http\Middleware\Authenticate;
 use Illuminate\Support\Facades\Route;
@@ -23,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 // });
 Route::get('/', function () {
     return view('dashboard');
-    })->middleware('new-auth');
+    })->middleware('new-auth')->name('dashboard');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -41,3 +42,8 @@ Route::get('/forgot-password', [PasswordController::class, 'getForgotPassword'])
 Route::post('/forgot-password', [PasswordController::class, 'postForgotPassword'])->name('post.forgot.password');
 Route::get('/reset-password/{token}', [PasswordController::class, 'getResetPassword'])->name('get.reset.password');
 Route::post('/reset-password', [PasswordController::class, 'postResetPassword'])->name('post.reset.password');
+
+Route::controller(ProfileController::class)->middleware('new-auth')->group(function (){
+    Route::get('profile', 'index')->name('get.profile');
+    Route::put('profile', 'store')->name('post.profile');
+});

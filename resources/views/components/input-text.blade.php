@@ -1,1 +1,3 @@
- <input {{ $attributes->merge(['class' => 'form-control']) }} />
+ @props(['disabled' => false])
+
+ <input {{ $attributes->merge(['class' => 'form-control', 'disabled' => $disabled]) }} />

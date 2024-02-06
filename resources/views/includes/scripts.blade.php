@@ -1,7 +1,6 @@
 <!-- REQUIRED SCRIPTS -->
 
 <!-- jQuery -->
-{{-- <script src="plugins/jquery/jquery.min.js"></script> --}}
 <script src="{{ asset('plugin/adminLte/js/jquery.min.js') }}"></script>
 <!-- Bootstrap -->
 <script src="{{ asset('plugin/adminLte/js/bootstrap.bundle.min.js') }}"></script>
@@ -41,6 +40,18 @@
             title: `{{ Session::get('info') }}`
         })
     @endif
+</script>
+<script type="text/javascript">
+    /***
+     * AdminLTE active menu dynamic
+     */
+    const url = window.location;
+    /*remove all active and menu open classes(collapse)*/
+    $('ul.nav-sidebar a').removeClass('active').parent().siblings().removeClass('menu-open');
+    /*find active element add active class ,if it is inside treeview element, expand its elements and select treeview*/
+    $('ul.nav-sidebar a').filter(function () {
+        return this.href == url;
+    }).addClass('active').closest(".has-treeview").addClass('menu-open').find("> a").addClass('active');
 </script>
 
 @yield('scripts')

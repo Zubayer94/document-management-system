@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RoleController;
 use App\Http\Middleware;
 use App\Http\Middleware\Authenticate;
 use Illuminate\Support\Facades\Route;
@@ -47,3 +48,10 @@ Route::controller(ProfileController::class)->middleware('new-auth')->group(funct
     Route::get('profile', 'index')->name('get.profile');
     Route::put('profile', 'store')->name('post.profile');
 });
+
+/**
+ * --------------------------
+ * User Access Control Flow |
+ * --------------------------
+ */
+Route::resource('roles', RoleController::class)->except(['show']);

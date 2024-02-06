@@ -8,7 +8,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Insert file</h1>
+                        <h1>Add file</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -41,7 +41,11 @@
                                         </div>
                                     </div>
 
-                                    <x-danger-button type="submit" />
+                                    <div class="form-group row mt-4">
+                                        <div class="col-sm-10 col-md-2">
+                                            <x-danger-button type="submit">Save</x-danger-button>
+                                        </div>
+                                    </div>
                                 </form>
                             </div>
                         </div>

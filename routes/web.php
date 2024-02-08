@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
@@ -55,3 +56,5 @@ Route::controller(ProfileController::class)->middleware('new-auth')->group(funct
  * --------------------------
  */
 Route::resource('roles', RoleController::class)->except(['show']);
+
+Route::resource('files', FileController::class)->except(['edit', 'update']);

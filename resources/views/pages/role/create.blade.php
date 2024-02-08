@@ -46,7 +46,7 @@
                                             <label for="name" class="required @error('name') text-danger @enderror">Role Name</label>
                                             <input id="name" class="form-control @error('name') is-invalid @enderror"
                                                 type="text" name="name" @if (old('name')) value="{{ old('name') }}"
-                                                @else value="@yield('name')" @endif placeholder="Role Name" required/>
+                                                @else value="" @endif placeholder="Role Name" required/>
                                             @error('name')
                                                 <small class="form-text text-danger">{{ $message }}</small>
                                             @enderror

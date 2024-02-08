@@ -53,7 +53,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($roles as $key => $role)
+                                    @forelse ($roles as $key => $role)
                                         <tr>
                                             <td>{{ ++$i }}</td>
                                             <td>{{ $role->name }}</td>
@@ -69,7 +69,11 @@
                                                 {{-- @endcan --}}
                                             </td>
                                         </tr>
-                                    @endforeach
+                                    @empty
+                                        <tr>
+                                            <td class="text-center" colspan="3">No data 😢</td>
+                                        </tr>
+                                    @endforelse
                                 </tbody>
                             </table>
                         </div>

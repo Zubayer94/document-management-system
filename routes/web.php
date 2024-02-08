@@ -3,7 +3,6 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\RoleController;
 use App\Http\Middleware;
 use App\Http\Middleware\Authenticate;
 use Illuminate\Support\Facades\Route;
@@ -31,6 +30,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
     })->middleware('new-auth');
 
+// login signup
 Route::controller(AuthController::class)->group(function (){
     Route::get('/login', 'index')->name('get.login');
     Route::post('/login', 'login')->name('post.login');
@@ -39,19 +39,14 @@ Route::controller(AuthController::class)->group(function (){
     Route::get('logout', 'logout')->name('logout');
 });
 
+// reset password
 Route::get('/forgot-password', [PasswordController::class, 'getForgotPassword'])->name('get.forgot.password');
 Route::post('/forgot-password', [PasswordController::class, 'postForgotPassword'])->name('post.forgot.password');
 Route::get('/reset-password/{token}', [PasswordController::class, 'getResetPassword'])->name('get.reset.password');
 Route::post('/reset-password', [PasswordController::class, 'postResetPassword'])->name('post.reset.password');
 
+// profile
 Route::controller(ProfileController::class)->middleware('new-auth')->group(function (){
     Route::get('profile', 'index')->name('get.profile');
     Route::put('profile', 'store')->name('post.profile');
 });
-
-/**
- * --------------------------
- * User Access Control Flow |
- * --------------------------
- */
-Route::resource('roles', RoleController::class)->except(['show']);

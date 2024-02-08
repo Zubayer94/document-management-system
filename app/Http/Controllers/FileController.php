@@ -4,14 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class FileUploadController extends Controller
+class FileController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('add_file');
+        return view('upload');
     }
 
     /**

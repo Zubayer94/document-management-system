@@ -15,7 +15,6 @@ class RoleController extends Controller
     public function index(Request $request)
     {
         $roles = Role::orderBy('id', 'DESC')->paginate(10);
-
         return view('pages.role.index', compact('roles'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
@@ -39,7 +38,7 @@ class RoleController extends Controller
             $role->syncPermissions($request->input('permissions'));
             return redirect()->route('roles.index')
             ->with('success', 'Role created successfully');
-            return redirect()->route('roles.index')->with('success', 'Added successfully!');
+            // return redirect()->route('roles.index')->with('success', 'Added successfully!');
         } catch (\Exception $e) {
             return redirect()->route('roles.index')->with('error', 'Something went wrong!');
         }

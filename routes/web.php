@@ -4,6 +4,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 use App\Http\Middleware;
 use App\Http\Middleware\Authenticate;
 use Illuminate\Support\Facades\Route;
@@ -52,12 +54,22 @@ Route::controller(ProfileController::class)->middleware('new-auth')->group(funct
     Route::put('profile', 'store')->name('post.profile');
 });
 
+
+// file upload
+Route::middleware(['new-auth'])->group(function () {
+    Route::resource('files', FileController::class);
+});
+
 /**
  * --------------------------
  * User Access Control Flow |
  * --------------------------
  */
 Route::resource('roles', RoleController::class)->except(['show']);
+Route::resource('users', UserController::class)->except(['show']);
 
 Route::resource('files', FileController::class)->except(['edit', 'update']);
+
+
+
 

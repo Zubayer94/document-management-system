@@ -8,12 +8,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Manage roles</h1>
+                        <h1>Manage users</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
-                            <li class="breadcrumb-item active">Roles</li>
+                            <li class="breadcrumb-item active">Users</li>
                         </ol>
                     </div>
                 </div>
@@ -29,7 +29,8 @@
                             <div class="row">
                                 <div class="col-md-3 offset-md-9">
                                     <div class="float-right">
-                                        <a class="btn btn-primary btn-flat" href="{{ route('roles.create') }}"> Add Role</a>
+                                        <a class="btn btn-primary btn-flat" href="{{ route('users.create') }}"> Add User
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -41,31 +42,30 @@
                                     <input name="column_filter_name" type="text" value="{{ Request::get('column_filter_name') }}" class="form-control" placeholder="Search by area" >
 
                                     <button type="submit" class="btn btn-outline-success">Filter</button>
-                                    <button type="button" id="clearRoleFilter" class="btn btn-outline-danger">Clear</button>
+                                    <button type="button" id="clearuserFilter" class="btn btn-outline-danger">Clear</button>
                                 </div>
                             </form> --}}
                             <table class="table-bordered table-hover table-striped table">
                                 <thead>
                                     <tr>
-                                        <th>SL</th>
-                                        <th>Role Name</th>
+                                        <th>SL.</th>
+                                        <th>User Name</th>
                                         <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($roles as $key => $role)
+                                    @forelse ($users as $key => $user)
                                         <tr>
                                             <td>{{ ++$i }}</td>
-                                            <td>{{ $role->name }}</td>
+                                            <td>{{ $user->name }}</td>
 
                                             <td class="text-center">
-                                                <a class="btn btn-info btn-sm"
-                                                    href="{{ route('roles.edit', [$role->id]) }}">
+                                                <a class="btn btn-info btn-sm" href="{{ route('users.edit', $user->id) }}">
                                                     <i class="fas fa-pencil-alt"></i>
                                                 </a>
-                                                {{-- @can('role-delete') --}}
-                                                <button class="btn btn-danger btn-sm delete-role" type="button"
-                                                    role-id="{{ $role->id }}">
+                                                {{-- @can('user-delete') --}}
+                                                <button class="btn btn-danger btn-sm delete-user" type="button"
+                                                    user-id="{{ $user->id }}">
                                                     <i class="fas fa-trash"></i>
                                                 </button>
                                                 {{-- @endcan --}}
@@ -79,15 +79,15 @@
                                 </tbody>
                             </table>
                         </div>
-                        @if (count($roles) > 0)
+                        @if (count($users) > 0)
                             <div class="card-footer">
                                 <div class="float-left">
-                                    <span>Showing </span> <b>{{ $roles->firstItem() }}</b>
-                                    <span>to </span> <b>{{ $roles->lastItem() }}</b> from
-                                    <span>total: </span> <b>{{ $roles->total() }}</b>
+                                    <span>Showing </span> <b>{{ $users->firstItem() }}</b>
+                                    <span>to </span> <b>{{ $users->lastItem() }}</b> from
+                                    <span>total: </span> <b>{{ $users->total() }}</b>
                                 </div>
                                 <div class="float-right">
-                                    {{ @$roles->links('pagination::bootstrap-4') }}
+                                    {{ @$users->links('pagination::bootstrap-4') }}
                                 </div>
                             </div>
                         @endif
@@ -104,14 +104,14 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script>
         $(document).ready(function() {
-            $('#clearRoleFilter').click(() => {
+            $('#clearuserFilter').click(() => {
                 $('input[name="column_filter_name"]').val('');
-                window.location.href = "{{ route('roles.index') }}";
+                window.location.href = "{{ route('users.index') }}";
             })
         });
 
         $(document).ready(function() {
-            $("body").on("click", ".delete-role", function() {
+            $("body").on("click", ".delete-user", function() {
 
                 Swal.fire({
                     title: 'Are you sure?',
@@ -123,9 +123,9 @@
                     confirmButtonText: 'Yes, delete it!'
                 }).then((result) => {
                     if (result.value) {
-                        let role_id = $(this).attr("role-id");
+                        let user_id = $(this).attr("user-id");
                         $.ajax({
-                            url: 'roles/' + role_id,
+                            url: 'users/' + user_id,
                             data: {
                                 "_token": "{{ csrf_token() }}"
                             },

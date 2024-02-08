@@ -8,12 +8,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Manage Roles</h1>
+                        <h1>Manage Files</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
-                            <li class="breadcrumb-item active">Roles</li>
+                            <li class="breadcrumb-item active">Files</li>
                         </ol>
                     </div>
                 </div>
@@ -29,7 +29,7 @@
                             <div class="row">
                                 <div class="col-md-3 offset-md-9">
                                     <div class="float-right">
-                                        <a class="btn btn-primary btn-flat" href="{{ route('roles.create') }}"> Add User Role</a>
+                                        <a class="btn btn-primary btn-flat" href="{{ route('files.create') }}">Add File</a>
                                     </div>
                                 </div>
                             </div>
@@ -41,29 +41,35 @@
                                     <input name="column_filter_name" type="text" value="{{ Request::get('column_filter_name') }}" class="form-control" placeholder="Search by area" >
 
                                     <button type="submit" class="btn btn-outline-success">Filter</button>
-                                    <button type="button" id="clearRoleFilter" class="btn btn-outline-danger">Clear</button>
+                                    <button type="button" id="clearFileFilter" class="btn btn-outline-danger">Clear</button>
                                 </div>
                             </form> --}}
                             <table class="table table-bordered table-hover table-striped">
                                 <thead>
                                     <tr>
                                         <th>SL</th>
-                                        <th>Role Name</th>
-                                        <th class="text-center" >Action</th>
+                                        <th>File Name</th>
+                                        <th>Type</th>
+                                        <th>Size</th>
+                                        <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($roles as $key => $role)
+                                    @forelse ($files as $key => $file)
                                         <tr>
                                             <td>{{ ++$i }}</td>
-                                            <td>{{ $role->name }}</td>
-
+                                            <td>{{ $file->name }}</td>
+                                            <td>{{ $file->mimeType }}</td>
+                                            <td>{{ round($file->size / 1024 / 1024, 2) }} mb</td>
                                             <td class="text-center">
-                                                <a class="btn btn-info btn-sm" href="{{ route( 'roles.edit', [$role->id]) }}">
-                                                    <i class="fas fa-pencil-alt"></i>
-                                                </a>
-                                                {{-- @can('role-delete') --}}
-                                                    <button type="button" class="btn btn-danger btn-sm delete-role" role-id="{{ $role->id }}" >
+                                                {{-- @can('file-download') --}}
+                                                    <a class="btn btn-success btn-sm" href="{{ asset($file->path) }}" download="{{ $file->name }}">
+                                                        <i class="fa-regular fa-circle-down"></i>
+                                                    </a>
+                                                {{-- @endcan --}}
+
+                                                {{-- @can('file-delete') --}}
+                                                    <button type="button" class="btn btn-danger btn-sm delete-file" file-id="{{ $file->id }}" >
                                                         <i class="fas fa-trash"></i>
                                                     </button>
                                                 {{-- @endcan --}}
@@ -71,21 +77,21 @@
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td class="text-center" colspan="3">No data 😢</td>
+                                            <td class="text-center" colspan="5">No data 😢</td>
                                         </tr>
                                     @endforelse
                                 </tbody>
                             </table>
                         </div>
-                        @if (count($roles)>0)
+                        @if (count($files)>0)
                             <div class="card-footer">
                                 <div class="float-left">
-                                    <span>Showing </span> <b>{{$roles->firstItem()}}</b>
-                                    <span>to </span> <b>{{$roles->lastItem()}}</b> from
-                                    <span>total: </span> <b>{{$roles->total()}}</b>
+                                    <span>Showing </span> <b>{{$files->firstItem()}}</b>
+                                    <span>to </span> <b>{{$files->lastItem()}}</b> from
+                                    <span>total: </span> <b>{{$files->total()}}</b>
                                 </div>
                                 <div class="float-right">
-                                    {{ @$roles->links('pagination::bootstrap-4') }}
+                                    {{ @$files->links('pagination::bootstrap-4') }}
                                 </div>
                             </div>
                         @endif
@@ -103,14 +109,14 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script>
         $(document).ready(function(){
-            $('#clearRoleFilter').click(()=>{
+            $('#clearFileFilter').click(()=>{
                 $('input[name="column_filter_name"]').val('');
-                window.location.href = "{{ route('roles.index')}}";
+                window.location.href = "{{ route('files.index')}}";
             })
         });
 
         $(document).ready(function(){
-            $("body").on("click", ".delete-role", function(){
+            $("body").on("click", ".delete-file", function(){
 
                 Swal.fire({
                     title: 'Are you sure?',
@@ -122,9 +128,9 @@
                     confirmButtonText: 'Yes, delete it!'
                 }).then((result) => {
                     if (result.value) {
-                        let role_id = $(this).attr("role-id");
+                        let file_id = $(this).attr("file-id");
                         $.ajax({
-                            url: 'roles/'+role_id,
+                            url: 'files/'+file_id,
                             data: {"_token": "{{ csrf_token() }}"},
                             type: 'delete',
                             success: function(result) {

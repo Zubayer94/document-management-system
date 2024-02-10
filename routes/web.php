@@ -5,6 +5,7 @@ use App\Http\Controllers\FileController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 use App\Http\Middleware;
 use App\Http\Middleware\Authenticate;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +30,7 @@ Route::controller(AuthController::class)->group(function () {
     Route::get('logout', 'logout')->name('logout');
 });
 
+// reset password
 Route::get('/forgot-password', [PasswordController::class, 'getForgotPassword'])->name('get.forgot.password');
 Route::post('/forgot-password', [PasswordController::class, 'postForgotPassword'])->name('post.forgot.password');
 Route::get('/reset-password/{token}', [PasswordController::class, 'getResetPassword'])->name('get.reset.password');
@@ -53,6 +55,6 @@ Route::middleware('auth')->group(function () {
      * User Access Control Flow
      */
     Route::resource('roles', RoleController::class)->except(['show']);
-
+    Route::resource('users', UserController::class)->except(['show']);
     Route::resource('files', FileController::class)->except(['edit', 'update']);
 });

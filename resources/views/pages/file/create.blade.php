@@ -1,4 +1,3 @@
-
 @extends('layouts.master')
 
 @section('body')
@@ -38,15 +37,19 @@
                             <h3 class="card-title">Create File</h3>
                         </div>
                         <div class="card-body">
-                            <form class="form" action="{{ route('files.store') }}" method="POST" enctype="multipart/form-data">
+                            <form class="form" action="{{ route('files.store') }}" method="POST"
+                                enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="form-group text-left">
-                                            <label for="name" class="required @error('name') text-danger @enderror">File Name</label>
-                                            <input id="name" class="form-control @error('name') is-invalid @enderror"
-                                                type="text" name="name" @if (old('name')) value="{{ old('name') }}"
-                                                @else value="" @endif placeholder="Role Name" required/>
+                                            <label class="required @error('name') text-danger @enderror" for="name">File
+                                                Name</label>
+                                            <input class="form-control @error('name') is-invalid @enderror" id="name"
+                                                name="name" type="text"
+                                                @if (old('name')) value="{{ old('name') }}"
+                                                @else value="" @endif
+                                                placeholder="Role Name" required />
                                             @error('name')
                                                 <small class="form-text text-danger">{{ $message }}</small>
                                             @enderror
@@ -54,20 +57,16 @@
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="form-group">
-                                            <label for="InputFile" class="required @error('file') text-danger @enderror">File input</label>
+                                            <label class="required @error('file') text-danger @enderror"
+                                                for="InputFile">File input</label>
                                             <div class="input-group">
                                                 <div class="custom-file">
-                                                    <input
-                                                        type="file"
+                                                    <input class="custom-file-input @error('file') is-invalid @enderror"
+                                                        id="InputFile" name="file" type="file" type="file"
                                                         accept=".csv, .txt, .xlx, .xls, .pdf"
-                                                        class="custom-file-input @error('file') is-invalid @enderror"
-                                                        id="InputFile"
-                                                        type="file" name="file"
                                                         @if (old('file')) value="{{ old('file') }}"
                                                         @else value="" @endif
-                                                        placeholder="upload file"
-                                                        required
-                                                    >
+                                                        placeholder="upload file" required>
                                                     <label class="custom-file-label" for="InputFile">Choose file</label>
                                                 </div>
                                             </div>
@@ -79,8 +78,8 @@
                                 </div>
                                 <div class="row pt-3">
                                     <div class="col-lg-12">
-                                        <a href="{{ route('files.index') }}" class="btn btn-danger">Cancel</a>
-                                        <button type="submit" class="btn btn-success">Create</button>
+                                        <a class="btn btn-danger" href="{{ route('files.index') }}">Cancel</a>
+                                        <button class="btn btn-success" type="submit">Create</button>
                                     </div>
                                 </div>
                             </form>
@@ -90,14 +89,13 @@
             </div>
         </section>
     </div>
-
 @endsection
 
 @section('scripts')
     <script type="module" src="{{ asset('plugin/adminLte/js/bs-custom-file-input.min.js') }}"></script>
     <script>
-        $(function () {
-          bsCustomFileInput.init();
+        $(function() {
+            bsCustomFileInput.init();
         });
     </script>
 @endsection

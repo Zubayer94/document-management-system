@@ -54,13 +54,13 @@
                                     <x-input-error :messages="$errors->first('email')" />
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputPassword1">Password</label>
+                                    <label for="exampleInputPassword1">New password</label>
                                     <input class="form-control" id="exampleInputPassword1" name="password" type="password"
                                         placeholder="Password">
                                     <x-input-error :messages="$errors->first('password')" />
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputPassword">Password</label>
+                                    <label for="exampleInputPassword">Confirm password</label>
                                     <input class="form-control" id="exampleInputPassword" name="password_confirmation"
                                         type="password" placeholder="Cconfirm password">
                                 </div>

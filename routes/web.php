@@ -6,8 +6,6 @@ use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
-use App\Http\Middleware;
-use App\Http\Middleware\Authenticate;
 use Illuminate\Support\Facades\Route;
 
 

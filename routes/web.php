@@ -36,13 +36,11 @@ Route::post('/reset-password', [PasswordController::class, 'postResetPassword'])
 
 
 Route::middleware('auth')->group(function () {
-    Route::get('/', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::redirect('/', '/dashboard');
 
     Route::get('/dashboard', function () {
         return view('dashboard');
-    });
+    })->name('dashboard');
 
     Route::controller(ProfileController::class)->group(function (){
         Route::get('profile', 'index')->name('get.profile');

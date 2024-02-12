@@ -22,11 +22,17 @@ class PermissionSeeder extends Seeder
                 ['name' => 'user_update',       'guard_name' => 'web'],
                 ['name' => 'user_delete',       'guard_name' => 'web'],
 
-                // permissions for role operation
+                // // permissions for role operation
                 ['name' => 'role_list',         'guard_name' => 'web'],
                 ['name' => 'role_create',       'guard_name' => 'web'],
                 ['name' => 'role_update',       'guard_name' => 'web'],
                 ['name' => 'role_delete',       'guard_name' => 'web'],
+
+                // permissions for file operation
+                ['name' => 'file_list',         'guard_name' => 'web'],
+                ['name' => 'file_create',       'guard_name' => 'web'],
+                // ['name' => 'file_update',       'guard_name' => 'web'],
+                ['name' => 'file_delete',       'guard_name' => 'web'],
             ]
         );
     }

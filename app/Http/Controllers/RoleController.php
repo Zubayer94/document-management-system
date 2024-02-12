@@ -20,7 +20,7 @@ class RoleController extends Controller
     {
         $roles = Role::orderBy('id', 'DESC')->paginate(10);
         return view('pages.role.index', compact('roles'))
-            ->with('i', ($request->input('page', 1) - 1) * 5);
+            ->with('i', ($request->input('page', 1) - 1) * 10);
     }
 
     /**
@@ -64,14 +64,14 @@ class RoleController extends Controller
     public function update(RoleRequest $request, Role $role)
     {
         if (!blank($role)) {
-            try {
+            // try {
                 $role->name = $request->input('name');
                 $role->save();
                 $role->syncPermissions($request->input('permissions'));
                 return redirect()->route('roles.index')->with('success', 'Role updated successfully');
-            } catch (\Exception $e) {
-                return redirect()->route('roles.index')->with('error', 'Something went wrong!');
-            }
+            // } catch (\Exception $e) {
+            //     return redirect()->route('roles.index')->with('error', 'Something went wrong!');
+            // }
         }
         return redirect()->route('roles.index')->with('error', 'Something went wrong!');
     }

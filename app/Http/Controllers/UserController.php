@@ -5,11 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
-use Hash;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('role:admin');
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -18,7 +23,10 @@ class UserController extends Controller
         $users = User::where('id', '!=', Auth::id())->orderBy('id', 'DESC')->paginate(10);
 
         return view('pages.user.index', compact('users'))
-        ->with('i', ($request->input('page', 1) - 1) * 5);
+        ->with('i', ($request->input('page', 1) - 1) * 10);
+        /*
+            ->with('i', ($request->input('page', 1) - 1) * 10): This sets a variable $i in the view, which represents the index of the first item on the current page. It calculates the index based on the current page number ($request->input('page', 1)) and offsets the index by 10 (assuming there are 10 users per page). This is useful for displaying sequential numbers in the view, often used in conjunction with pagination.
+        */
     }
 
     /**
@@ -47,7 +55,7 @@ class UserController extends Controller
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
-                'password' => hash::make($request->password),
+                'password' => Hash::make($request->password),
             ]);
 
             $user->assignRole($request->role);
@@ -97,7 +105,7 @@ class UserController extends Controller
         $user->syncRoles($request->role);
 
         if($request->has('password')){
-            $user->update(['password' => hash::make('password')]);
+            $user->update(['password' => Hash::make('password')]);
         }
 
         session()->flash('success', 'User updated successfully');

@@ -44,7 +44,7 @@
                                     <button type="button" id="clearFileFilter" class="btn btn-outline-danger">Clear</button>
                                 </div>
                             </form> --}}
-                            <table class="table table-bordered table-hover table-striped">
+                            <table class="table-bordered table-hover table-striped table">
                                 <thead>
                                     <tr>
                                         <th>SL</th>
@@ -62,16 +62,24 @@
                                             <td>{{ $file->mimeType }}</td>
                                             <td>{{ round($file->size / 1024 / 1024, 2) }} mb</td>
                                             <td class="text-center">
-                                                {{-- @can('file-download') --}}
-                                                    <a class="btn btn-success btn-sm" href="{{ asset($file->path) }}" download="{{ $file->name }}">
-                                                        <i class="fa-regular fa-circle-down"></i>
+                                                @if ($file->mimeType === 'application/pdf')
+                                                    <a class="btn btn-warning btn-sm"
+                                                        href="{{ route('file.preview', ['id' => $file->id]) }}">
+                                                        <i class="fa fa-eye" aria-hidden="true"></i>
                                                     </a>
+                                                @endif
+                                                {{-- @can('file-download') --}}
+                                                <a class="btn btn-success btn-sm" href="{{ asset($file->path) }}"
+                                                    download="{{ $file->name }}">
+                                                    <i class="fa-regular fa-circle-down"></i>
+                                                </a>
                                                 {{-- @endcan --}}
 
                                                 {{-- @can('file-delete') --}}
-                                                    <button type="button" class="btn btn-danger btn-sm delete-file" file-id="{{ $file->id }}" >
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
+                                                <button class="btn btn-danger btn-sm delete-file" type="button"
+                                                    file-id="{{ $file->id }}">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
                                                 {{-- @endcan --}}
                                             </td>
                                         </tr>
@@ -83,12 +91,12 @@
                                 </tbody>
                             </table>
                         </div>
-                        @if (count($files)>0)
+                        @if (count($files) > 0)
                             <div class="card-footer">
                                 <div class="float-left">
-                                    <span>Showing </span> <b>{{$files->firstItem()}}</b>
-                                    <span>to </span> <b>{{$files->lastItem()}}</b> from
-                                    <span>total: </span> <b>{{$files->total()}}</b>
+                                    <span>Showing </span> <b>{{ $files->firstItem() }}</b>
+                                    <span>to </span> <b>{{ $files->lastItem() }}</b> from
+                                    <span>total: </span> <b>{{ $files->total() }}</b>
                                 </div>
                                 <div class="float-right">
                                     {{ @$files->links('pagination::bootstrap-4') }}
@@ -102,21 +110,20 @@
             </div>
         </section>
     </div>
-
 @endsection
 
 @section('scripts')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script>
-        $(document).ready(function(){
-            $('#clearFileFilter').click(()=>{
+        $(document).ready(function() {
+            $('#clearFileFilter').click(() => {
                 $('input[name="column_filter_name"]').val('');
-                window.location.href = "{{ route('files.index')}}";
+                window.location.href = "{{ route('files.index') }}";
             })
         });
 
-        $(document).ready(function(){
-            $("body").on("click", ".delete-file", function(){
+        $(document).ready(function() {
+            $("body").on("click", ".delete-file", function() {
 
                 Swal.fire({
                     title: 'Are you sure?',
@@ -130,8 +137,10 @@
                     if (result.value) {
                         let file_id = $(this).attr("file-id");
                         $.ajax({
-                            url: 'files/'+file_id,
-                            data: {"_token": "{{ csrf_token() }}"},
+                            url: 'files/' + file_id,
+                            data: {
+                                "_token": "{{ csrf_token() }}"
+                            },
                             type: 'delete',
                             success: function(result) {
                                 Swal.fire(
@@ -139,7 +148,7 @@
                                     result.status,
                                     'success'
                                 );
-                                setTimeout(function(){
+                                setTimeout(function() {
                                     window.location.reload();
                                 }, 2000);
                             }

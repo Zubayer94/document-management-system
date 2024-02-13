@@ -22,36 +22,30 @@
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
-
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" data-accordion="false"
                 role="menu">
-
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" data-accordion="false"
-                    role="menu">
-
-                    <!-- Add icons to the links using the .nav-icon class
+                <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-                    <li class="nav-item has-treeview">
-                        <a class="nav-link active" href="{{ route('dashboard') }}">
-                            <i class="nav-icon fas fa-tachometer-alt"></i>
-                            <p>
-                                Dashboard
-                                <i class="right"></i>
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-item has-treeview">
+                <li class="nav-item has-treeview">
+                    <a class="nav-link active" href="{{ route('dashboard') }}">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>
+                            Dashboard
+                            <i class="right"></i>
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item has-treeview">
+                    <a class="nav-link active" href="{{ route('files.index') }}">
+                        <i class="nav-icon fa-regular fa-file-lines"></i>
+                        <p>
+                            File
+                            <i class="right"></i>
+                        </p>
+                    </a>
+                </li>
 
-                        <a class="nav-link active" href="{{ route('files.index') }}">
-                            <i class="nav-icon fa-regular fa-file-lines"></i>
-                            <p>
-                                File
-                                <i class="right"></i>
-                            </p>
-                        </a>
-                    </li>
-
-                    {{-- <li class="nav-item has-treeview">
+                {{-- <li class="nav-item has-treeview">
                         <a class="nav-link" href="#">
                             <i class="fas fa-users"></i>
 
@@ -72,45 +66,45 @@
                             </ul>
                         </a>
                     </li> --}}
-                    <li class="nav-item has-treeview">
-                        <a class="nav-link" href="#">
-                            <i class="nav-icon fas fa-users"></i>
+                <li class="nav-item has-treeview">
+                    <a class="nav-link" href="#">
+                        <i class="nav-icon fas fa-users"></i>
 
-                            <p>Admin
-                                <i class="right fas fa-angle-left"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            {{-- <li class="nav-item">
+                        <p>Admin
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        {{-- <li class="nav-item">
                             <a href="{{ route('admin-self.index') }}" class="nav-link">
                                 <i class="fas fa-angle-double-right"></i>
                                 <p>All Users</p>
                             </a>
                         </li> --}}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('users.index') }}">
-                                    <i class="nav-icon fas fa-angle-double-right"></i>
-                                    <p>User manager</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('roles.index') }}">
-                                    <i class="nav-icon fas fa-angle-double-right"></i>
-                                    <p>Roles manager</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="nav-icon fas fa-th"></i>
-                            <p>
-                                Widgets
-                                <span class="right badge badge-danger">New</span>
-                            </p>
-                        </a>
-                    </li>
-                </ul>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('users.index') }}">
+                                <i class="nav-icon fas fa-angle-double-right"></i>
+                                <p>User manager</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('roles.index') }}">
+                                <i class="nav-icon fas fa-angle-double-right"></i>
+                                <p>Roles manager</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Widgets
+                            <span class="right badge badge-danger">New</span>
+                        </p>
+                    </a>
+                </li>
+            </ul>
         </nav>
         <!-- /.sidebar-menu -->
     </div>

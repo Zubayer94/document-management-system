@@ -6,7 +6,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\FileRequest;
 use App\Models\File;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
+use Dompdf\Dompdf;
 
 class FileController extends Controller
 {
@@ -99,4 +101,25 @@ class FileController extends Controller
 
         return response()->json(['success' => true, 'status'=> 'File has been deleted.']);
     }
+
+    public function previewPDF(string $id)
+    {
+        try {
+            $file = File::findOrFail($id);
+
+            $response = response()->file(public_path($file->path), [
+                'Content-Type' => 'application/pdf',
+            ]);
+
+            // $response = response()->file(public_path($file->path), [
+            //         'Content-Type' => 'image/jpeg',
+            //     ]);
+
+            return $response;
+        } catch (\Exception $e) {
+            // Handle file not found gracefully
+            return abort(404, "The file does not exist."); // Or redirect, show an error message, etc.
+        }
+    }
+
 }

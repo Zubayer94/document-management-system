@@ -68,6 +68,8 @@ Route::middleware(['new-auth'])->group(function () {
 Route::resource('roles', RoleController::class)->except(['show']);
 Route::resource('users', UserController::class)->except(['show']);
 
+
+Route::get('/files/{id}/preview', [FileController::class, 'previewPDF'])->name('file.preview');
 Route::resource('files', FileController::class)->except(['edit', 'update']);
 
 

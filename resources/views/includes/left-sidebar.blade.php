@@ -22,6 +22,7 @@
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
+
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" data-accordion="false"
                 role="menu">
                 <!-- Add icons to the links using the .nav-icon class
@@ -44,7 +45,6 @@
                         </p>
                     </a>
                 </li>
-
                 {{-- <li class="nav-item has-treeview">
                         <a class="nav-link" href="#">
                             <i class="fas fa-users"></i>
@@ -65,8 +65,7 @@
                                 </li>
                             </ul>
                         </a>
-                    </li> --}}
-                <li class="nav-item has-treeview">
+                    </li> --}} <li class="nav-item has-treeview">
                     <a class="nav-link" href="#">
                         <i class="nav-icon fas fa-users"></i>
 

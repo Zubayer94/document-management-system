@@ -12,6 +12,13 @@ use Dompdf\Dompdf;
 
 class FileController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:file_list', ['only' => ['index']]);
+        $this->middleware('permission:file_create', ['only' => ['create','store']]);
+        $this->middleware('permission:file_delete', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -21,7 +28,7 @@ class FileController extends Controller
         $files = File::orderBy('id', 'DESC')->paginate(10);
 
         return view('pages.file.index', compact('files'))
-            ->with('i', ($request->input('page', 1) - 1) * 5);
+            ->with('i', ($request->input('page', 1) - 1) * 10);
     }
 
     /**

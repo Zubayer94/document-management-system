@@ -6,8 +6,6 @@ use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
-use App\Http\Middleware;
-use App\Http\Middleware\Authenticate;
 use Illuminate\Support\Facades\Route;
 
 
@@ -22,19 +20,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-// return view('index');
-// });
-Route::get('/', function () {
-    return view('dashboard');
-    })->middleware('new-auth')->name('dashboard');
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-    })->middleware('new-auth');
-
-// login signup
-Route::controller(AuthController::class)->group(function (){
+Route::controller(AuthController::class)->group(function () {
     Route::get('/login', 'index')->name('get.login');
     Route::post('/login', 'login')->name('post.login');
     Route::get('/signup', 'signup')->name('get.signup');
@@ -48,29 +34,29 @@ Route::post('/forgot-password', [PasswordController::class, 'postForgotPassword'
 Route::get('/reset-password/{token}', [PasswordController::class, 'getResetPassword'])->name('get.reset.password');
 Route::post('/reset-password', [PasswordController::class, 'postResetPassword'])->name('post.reset.password');
 
-// profile
-Route::controller(ProfileController::class)->middleware('new-auth')->group(function (){
-    Route::get('profile', 'index')->name('get.profile');
-    Route::put('profile', 'store')->name('post.profile');
+
+Route::middleware('auth')->group(function () {
+    Route::redirect('/', '/dashboard');
+
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
+    Route::controller(ProfileController::class)->group(function (){
+        Route::get('profile', 'index')->name('get.profile');
+        Route::put('profile', 'store')->name('post.profile');
+    });
+
+    /*
+     * User Access Control Flow
+     */
+    Route::resource('roles', RoleController::class)->except(['show']);
+    Route::resource('users', UserController::class)->except(['show']);
+    Route::get('/files/{id}/preview', [FileController::class, 'previewPDF'])->name('file.preview');
+    Route::resource('files', FileController::class)->except(['edit', 'update']);
 });
 
 
-// file upload
-Route::middleware(['new-auth'])->group(function () {
-    Route::resource('files', FileController::class);
-});
-
-/**
- * --------------------------
- * User Access Control Flow |
- * --------------------------
- */
-Route::resource('roles', RoleController::class)->except(['show']);
-Route::resource('users', UserController::class)->except(['show']);
-
-
-Route::get('/files/{id}/preview', [FileController::class, 'previewPDF'])->name('file.preview');
-Route::resource('files', FileController::class)->except(['edit', 'update']);
 
 
 

@@ -29,7 +29,9 @@
                             <div class="row">
                                 <div class="col-md-3 offset-md-9">
                                     <div class="float-right">
-                                        <a class="btn btn-primary btn-flat" href="{{ route('files.create') }}">Add File</a>
+                                        @can('file_create')
+                                            <a class="btn btn-primary btn-flat" href="{{ route('files.create') }}">Add File</a>
+                                        @endcan
                                     </div>
                                 </div>
                             </div>
@@ -67,7 +69,7 @@
                                                         href="{{ route('file.preview', ['id' => $file->id]) }}">
                                                         <i class="fa fa-eye" aria-hidden="true"></i>
                                                     </a>
-                                                {{-- @else
+                                                    {{-- @else
                                                     <a class="btn btn-warning btn-sm"
                                                         href="{{ route('files.show', ['file' => $file->id]) }}">
                                                         <i class="fa fa-eye" aria-hidden="true"></i>
@@ -80,12 +82,12 @@
                                                 </a>
                                                 {{-- @endcan --}}
 
-                                                {{-- @can('file-delete') --}}
-                                                <button class="btn btn-danger btn-sm delete-file" type="button"
-                                                    file-id="{{ $file->id }}">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                                {{-- @endcan --}}
+                                                @can('file_delete')
+                                                    <button class="btn btn-danger btn-sm delete-file" type="button"
+                                                        file-id="{{ $file->id }}">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                @endcan
                                             </td>
                                         </tr>
                                     @empty

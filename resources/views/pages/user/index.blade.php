@@ -29,8 +29,10 @@
                             <div class="row">
                                 <div class="col-md-3 offset-md-9">
                                     <div class="float-right">
-                                        <a class="btn btn-primary btn-flat" href="{{ route('users.create') }}"> Add User
-                                        </a>
+                                        @can('user_create')
+                                            <a class="btn btn-primary btn-flat" href="{{ route('users.create') }}"> Add User
+                                            </a>
+                                        @endcan
                                     </div>
                                 </div>
                             </div>
@@ -60,15 +62,17 @@
                                             <td>{{ $user->name }}</td>
 
                                             <td class="text-center">
-                                                <a class="btn btn-info btn-sm" href="{{ route('users.edit', $user->id) }}">
-                                                    <i class="fas fa-pencil-alt"></i>
-                                                </a>
-                                                {{-- @can('user-delete') --}}
-                                                <button class="btn btn-danger btn-sm delete-user" type="button"
-                                                    user-id="{{ $user->id }}">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                                {{-- @endcan --}}
+                                                @can('user_show')
+                                                    <a class="btn btn-info btn-sm" href="{{ route('users.edit', $user->id) }}">
+                                                        <i class="fas fa-pencil-alt"></i>
+                                                    </a>
+                                                @endcan
+                                                @can('user_delete')
+                                                    <button class="btn btn-danger btn-sm delete-user" type="button"
+                                                        user-id="{{ $user->id }}">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                @endcan
                                             </td>
                                         </tr>
                                     @empty

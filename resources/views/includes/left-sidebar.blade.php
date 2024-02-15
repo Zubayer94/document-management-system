@@ -37,13 +37,15 @@
                     </a>
                 </li>
                 <li class="nav-item has-treeview">
-                    <a class="nav-link active" href="{{ route('files.index') }}">
-                        <i class="nav-icon fa-regular fa-file-lines"></i>
-                        <p>
-                            File
-                            <i class="right"></i>
-                        </p>
-                    </a>
+                    @can('file_list')
+                        <a class="nav-link active" href="{{ route('files.index') }}">
+                            <i class="nav-icon fa-regular fa-file-lines"></i>
+                            <p>
+                                File
+                                <i class="right"></i>
+                            </p>
+                        </a>
+                    @endcan
                 </li>
                 {{-- <li class="nav-item has-treeview">
                         <a class="nav-link" href="#">

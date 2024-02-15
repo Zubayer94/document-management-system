@@ -7,6 +7,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Models\User;
 
 
 /*
@@ -39,7 +40,8 @@ Route::middleware('auth')->group(function () {
     Route::redirect('/', '/dashboard');
 
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        $users = User::count();
+        return view('dashboard', ['users'=>$users]);
     })->name('dashboard');
 
     Route::controller(ProfileController::class)->group(function (){

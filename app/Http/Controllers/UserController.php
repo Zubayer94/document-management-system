@@ -50,12 +50,12 @@ class UserController extends Controller
             'password_confirmation' => 'required',
             'role' => 'required',
         ]);
-
+// return $request->toArray();
         try {
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
-                'password' => Hash::make($request->password),
+                'password' => hash::make($request->password),
             ]);
 
             $user->assignRole($request->role);
@@ -90,6 +90,7 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        // return $request->toArray();
         $request->validate([
             'name' => 'required',
             'email' => "required|email|unique:users,email,$user->id",

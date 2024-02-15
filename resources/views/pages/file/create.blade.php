@@ -63,7 +63,7 @@
                                                 <div class="custom-file">
                                                     <input class="custom-file-input @error('file') is-invalid @enderror"
                                                         id="InputFile" name="file" type="file" type="file"
-                                                        accept=".csv, .txt, .xlx, .xls, .pdf"
+                                                        accept=".doc, .docx, .xlsx, .ppt, .pptx, .csv, .txt, .xlx, .xls, .pdf, .jpg, .jpeg, .png, .gif, .webp, .zip, .rar"
                                                         @if (old('file')) value="{{ old('file') }}"
                                                         @else value="" @endif
                                                         placeholder="upload file" required>

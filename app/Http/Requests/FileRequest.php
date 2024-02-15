@@ -23,7 +23,7 @@ class FileRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255|min:3',
-            'file' => 'required|mimes:csv,txt,xlx,xls,pdf|max:2048'
+            'file' => 'required|mimes:doc,docx,csv,xls,xlsx,ppt,pptx,pdf,jpg,jpeg,png,gif,zip,rar|max:10000'
         ];
     }
 }

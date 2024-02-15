@@ -50,7 +50,7 @@
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Email address</label>
                                     <input class="form-control" id="exampleInputEmail1" name="email" type="email"
-                                        value="{{ old('email', $user->email) }}" disabled placeholder="Enter email">
+                                        value="{{ $user->email }}" readonly  placeholder="Enter email">
                                     <x-input-error :messages="$errors->first('email')" />
                                 </div>
                                 <div class="form-group">

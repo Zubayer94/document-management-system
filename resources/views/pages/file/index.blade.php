@@ -62,11 +62,16 @@
                                             <td>{{ $file->mimeType }}</td>
                                             <td>{{ round($file->size / 1024 / 1024, 2) }} mb</td>
                                             <td class="text-center">
-                                                @if ($file->mimeType === 'application/pdf')
+                                                @if ($file->mimeType === 'application/pdf' || $file->mimeType === 'image/jpeg')
                                                     <a class="btn btn-warning btn-sm"
                                                         href="{{ route('file.preview', ['id' => $file->id]) }}">
                                                         <i class="fa fa-eye" aria-hidden="true"></i>
                                                     </a>
+                                                {{-- @else
+                                                    <a class="btn btn-warning btn-sm"
+                                                        href="{{ route('files.show', ['file' => $file->id]) }}">
+                                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                                    </a> --}}
                                                 @endif
                                                 {{-- @can('file-download') --}}
                                                 <a class="btn btn-success btn-sm" href="{{ asset($file->path) }}"

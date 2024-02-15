@@ -65,34 +65,37 @@
                                 </li>
                             </ul>
                         </a>
-                    </li> --}} <li class="nav-item has-treeview">
-                    <a class="nav-link" href="#">
-                        <i class="nav-icon fas fa-users"></i>
+                    </li> --}}
+                <li class="nav-item has-treeview">
+                    @if (Auth::user()->hasRole('admin'))
+                        <a class="nav-link" href="#">
+                            <i class="nav-icon fas fa-users"></i>
 
-                        <p>Admin
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        {{-- <li class="nav-item">
+                            <p>Admin
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            {{-- <li class="nav-item">
                             <a href="{{ route('admin-self.index') }}" class="nav-link">
                                 <i class="fas fa-angle-double-right"></i>
                                 <p>All Users</p>
                             </a>
                         </li> --}}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('users.index') }}">
-                                <i class="nav-icon fas fa-angle-double-right"></i>
-                                <p>User manager</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('roles.index') }}">
-                                <i class="nav-icon fas fa-angle-double-right"></i>
-                                <p>Roles manager</p>
-                            </a>
-                        </li>
-                    </ul>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('users.index') }}">
+                                    <i class="nav-icon fas fa-angle-double-right"></i>
+                                    <p>User manager</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('roles.index') }}">
+                                    <i class="nav-icon fas fa-angle-double-right"></i>
+                                    <p>Roles manager</p>
+                                </a>
+                            </li>
+                        </ul>
+                    @endif
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">

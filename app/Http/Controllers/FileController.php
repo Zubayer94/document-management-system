@@ -7,6 +7,7 @@ use App\Http\Requests\FileRequest;
 use App\Models\File;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Dompdf\Dompdf;
 
@@ -14,7 +15,7 @@ class FileController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('permission:file_list', ['only' => ['index']]);
+        $this->middleware('permission:file_list', ['only' => ['index', 'preview']]);
         $this->middleware('permission:file_create', ['only' => ['create','store']]);
         $this->middleware('permission:file_delete', ['only' => ['destroy']]);
     }
@@ -25,7 +26,8 @@ class FileController extends Controller
 
     public function index(Request $request)
     {
-        $files = File::orderBy('id', 'DESC')->paginate(10);
+        // return auth::id();
+        $files = File::where('user_id', Auth::id())->orderBy('id', 'DESC')->paginate(10);
 
         return view('pages.file.index', compact('files'))
             ->with('i', ($request->input('page', 1) - 1) * 10);
@@ -73,7 +75,9 @@ class FileController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $file = File::findOrFail($id);
+
+        return view('pages.file.view', ['file'=>$file]);
     }
 
     /*
@@ -109,18 +113,20 @@ class FileController extends Controller
         return response()->json(['success' => true, 'status'=> 'File has been deleted.']);
     }
 
-    public function previewPDF(string $id)
+    public function preview(string $id)
     {
         try {
             $file = File::findOrFail($id);
 
-            $response = response()->file(public_path($file->path), [
-                'Content-Type' => 'application/pdf',
-            ]);
-
-            // $response = response()->file(public_path($file->path), [
-            //         'Content-Type' => 'image/jpeg',
-            //     ]);
+            if($file->mimeType=='application/pdf'){
+                $response = response()->file(public_path($file->path), [
+                    'Content-Type' => 'application/pdf',
+                ]);
+            }else {
+                $response = response()->file(public_path($file->path), [
+                    'Content-Type' => 'image/jpeg',
+                ]);
+            }
 
             return $response;
         } catch (\Exception $e) {

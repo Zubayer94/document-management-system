@@ -27,7 +27,7 @@ class FileController extends Controller
     public function index(Request $request)
     {
         // return auth::id();
-        $files = File::where('user_id', Auth::id())->orderBy('id', 'DESC')->paginate(10);
+        $files = File::orderBy('id', 'DESC')->paginate(10);
 
         return view('pages.file.index', compact('files'))
             ->with('i', ($request->input('page', 1) - 1) * 10);
